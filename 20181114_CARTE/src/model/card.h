@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_CARD_VALUIE = 13
-
 #ifndef CARD_H
 #define CARD_H
 typedef enum s { // Rappresentazione dei SEMI
@@ -23,7 +21,11 @@ typedef struct {
 } Card;
 #endif
 
+// Inizializza la carta
 Card* card__init(int value, Suit suit);
 
+// Stampa una carta su fp
 void card__print(Card* card, FILE* fp);
+
+//Stampa generico per foreach di List
 void card__print_for_list(void* card);

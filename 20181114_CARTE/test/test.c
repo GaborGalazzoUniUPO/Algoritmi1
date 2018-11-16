@@ -2,21 +2,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+int main()
+{
 
-    Scopa_e* se = scopa_engine__init(4);
+    Scopa_e *se = scopa_engine__init(4);
     scopa_engine__print_status(se);
     scopa_engine__reset(se);
     scopa_engine__print_status(se);
     int next = 0;
-    do{
+    printf("\n>");
+    scanf("%d", &next);
+    while (next)
+    {
+       
         scopa_engine__step(se);
-        scopa_engine__print_status(se);
-
+         if (!scopa_engine__is_game_end(se))
+            scopa_engine__print_status(se);
+            else{
+                scopa_engine__step(se);
+                break;
+            }
         
         printf("\n>");
         scanf("%d", &next);
-    }while(next);
+    }
     return 0;
-
 }
