@@ -1,0 +1,18 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.c
+!*.h
+!*.md
+!*.gitignore
+!*.gitkeep
+
+
+# Unignore all dirs
+!*/
+
+# Unignore makefiles
+!*makefile
+
+*.vscode/
