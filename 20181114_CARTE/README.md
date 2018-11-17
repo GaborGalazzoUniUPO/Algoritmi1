@@ -217,7 +217,7 @@ Dal precedente algoritmo si può dedurre la seguente relazione di ricorrenza:
 Dato che la relazione di ricorrenza precedente è della forma 
 <div style="text-align:center">
 
-![t_master](https://latex.codecogs.com/gif.latex?T%28n%29%20%3D%20%5Cbegin%7Bcases%7D%20aT%28%5Cfrac%7Bn%7D%7Bb%7D%29%20%5CLeftarrow%20n%20%3E%20k%5C%5C%201%20%5CLeftarrow%20n%20%5Cleq%20k%20%5Cend%7Bcases%7D)
+![t_master](https://latex.codecogs.com/gif.latex?T%28n%29%20%3D%20%5Cbegin%7Bcases%7D%20aT%28%5Cfrac%7Bn%7D%7Bb%7D%29%20%5CLeftarrow%20n%20%3E%20k%5C%5C%20c%20%5CLeftarrow%20n%20%5Cleq%20k%20%5Cend%7Bcases%7D)
 
 </div>
 
