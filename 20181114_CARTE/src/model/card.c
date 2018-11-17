@@ -31,13 +31,13 @@ char *card__value(int value)
     switch (value)
     {
     case 1:
-        return "ACE";
+        return "A";
     case 11:
-        return "JACK";
+        return "J";
     case 12:
-        return "QUEEN";
+        return "Q";
     case 13:
-        return "KING";
+        return "K";
     default:
         fprintf(stderr, "INVALID CARD VALUE %d\n", value);
         exit(EXIT_FAILURE);
