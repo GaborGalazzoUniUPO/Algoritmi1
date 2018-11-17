@@ -209,28 +209,31 @@ algoritmo deck__shuffle(Deck deck)
     cambio il riffedrimento a deck con result
 </pre>
 Dal precedente algoritmo si può dedurre la seguente relazione di ricorrenza:
-<div style="text-align:center">
+
+<p align="center">
 
 ![eqazione di ricorrenza](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20T%280%29%20%3D%20T%281%29%20%3D%200%5C%5C%20T%28n%29%20%3D%202T%28%20%5Cfrac%7Bn%7D%7B2%7D%20%29%20&plus;%20%5Cfrac%7B3%7D%7B2%7Dn%20%5Cend%7Bcases%7D)
 
-</div>
+</p>
 Dato che la relazione di ricorrenza precedente è della forma 
-<div style="text-align:center">
+
+<p align="center">
 
 ![t_master](https://latex.codecogs.com/gif.latex?T%28n%29%20%3D%20%5Cbegin%7Bcases%7D%20aT%28%5Cfrac%7Bn%7D%7Bb%7D%29%20%5CLeftarrow%20n%20%3E%20k%5C%5C%20c%20%5CLeftarrow%20n%20%5Cleq%20k%20%5Cend%7Bcases%7D)
 
-</div>
+</p>
 
 è applicabile il *"Teorema Master"*
 
-<div style="text-align:center">
+<p align="center">
 
 ![applicazione](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20a%20%3D%202%5C%5C%20b%20%3D%202%5C%5C%20f%28n%29%20%3D%20%5Cfrac%7B3%7D%7B2%7D%5C%5Cg%28n%29%20%3D%20n%5E%7Blob_ba%7D%20%3D%20n%5E%7Blog_22%7D%3Dn%5E1%20%3D%20n%20%5Cend%7Bcases%7D)
 
-</div>
+</p>
 
 Dala relazione possiamo stabilire che: 
-<div style="text-align:center">
+
+<p align="center">
 
 ![asin](https://latex.codecogs.com/gif.latex?f%28n%29%20%3D%20%5CTheta%20%28g%28n%29%29%20%5CRightarrow%20T%28n%29%20%3D%20%5CTheta%20%28n%20%5Ccdot%20log%28n%29%29)
-</div>
+</p>
