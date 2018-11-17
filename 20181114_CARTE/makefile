@@ -9,13 +9,13 @@ SHARED_C = $(wildcard ../shared/*.c)
 ENGINE_C = $(wildcard src/engine/*.c)
 ENGINE_H = $(wildcard src/engine/*.h)
 
-tutti: $(MAIN)
+tutti: clear $(MAIN) 
 
-%: %.c $(MODEL_H) $(SHARED_H) $(MODEL_C) $(SHARED_C) $(ENGINE_H) $(ENGINE_C)
-	clear 
+%: %.c $(MODEL_H) $(SHARED_H) $(MODEL_C) $(SHARED_C) $(ENGINE_H) $(ENGINE_C) 
 	gcc -g -Wall -std=c99 -o out/$@ $< $(MODEL_C) $(SHARED_C) $(ENGINE_C)
 
-
+clear:
+	clear
 
 clean:
 	rm -rf *.o *.exe $(MAIN)

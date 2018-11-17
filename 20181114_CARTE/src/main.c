@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
-    Card* c = card__init(1, CLUBS);
+int main()
+{
+    Card *c = card__init(1, CLUBS);
     card__print(c, stdout);
     puts("");
     List list = list__init();
@@ -13,7 +14,6 @@ int main(){
     table__play(&t, c);
     table__print(t);
     puts("");
-    
-    return 0;
 
+    return 0;
 }

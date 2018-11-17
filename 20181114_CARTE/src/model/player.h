@@ -17,7 +17,7 @@ Player player__init();
 // Dato un deck il giocatore ne pesta num_cards carte
 void player__draw(Deck* deck, Player* player, int num_cards);
 // Verifica se il giocatore ha la mano vuota
-int player__empty_hand(Player player);+
+int player__empty_hand(Player player);
 // Fa giocare una carta (pop sulla lista)
 Card* player__play(Player* player);
 

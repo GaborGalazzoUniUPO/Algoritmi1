@@ -12,12 +12,12 @@ typedef Queue Deck;
 #include <stdlib.h>
 #include "card.h"
 
-Deck* deck__init(); //Inizializza il mazzo
-void deck__shuffle(Deck* deck); //mischia il mazzo tramite "ruffle shuffle"
-void deck__good_shuffle(Deck* deck); //mischia un numero rando di volte tra 3 e 6 il mazzo
-Card* deck__draw(Deck* deck); //togli una carta dala cima del mazzo e te la restituisce
+Deck *deck__init();                  //Inizializza il mazzo
+void deck__shuffle(Deck *deck);      //mischia il mazzo tramite "ruffle shuffle"
+void deck__good_shuffle(Deck *deck); //mischia un numero rando di volte tra 3 e 6 il mazzo
+Card *deck__draw(Deck *deck);        //togli una carta dala cima del mazzo e te la restituisce
 
 //Utililties
-void deck__print(Deck* deck); //Stampa il deck
-int deck__is_empty(Deck* deck); //Restituisce se il mmazzo è vuoto
-int deck__count(Deck* deck);// Restituiisce il numero di carte dentro il deck
+void deck__print(Deck *deck);   //Stampa il deck
+int deck__is_empty(Deck *deck); //Restituisce se il mmazzo è vuoto
+int deck__count(Deck *deck);    // Restituiisce il numero di carte dentro il deck
