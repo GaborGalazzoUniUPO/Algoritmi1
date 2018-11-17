@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="lezione-20181114---scopa">LEZIONE 2018/11/14 - SCOPA</h1>
+<h5 id="gabor-galazzo-20024195-aa-20182019">Gabor Galazzo 20024195 A.A. 2018/2019</h5>
+<p>Il programma è uno scheletro per il gioco di carte &quot;scopa&quot;. Rappresenta le carte, il mazzo, i giocatori e il tavolo.
+Lo scheletro è programmato per funzionare nel seguente modo:</p>
+<ul>
+<li>Situazione iniziale:
+<ul>
+<li>Giocatori: 4 stack inizializzati e vuoti</li>
+<li>Carte sul tavolo: lista inizializzata e vuota</li>
+<li>Mazzo di carte: coda di 40 carte “ordinate”</li>
+</ul>
+</li>
+<li>Prima mano:
+<ul>
+<li>Mescolare il mazzo</li>
+<li>Dare le carte ai giocatori (3 a testa)</li>
+<li>Mettere 4 carte sul tavolo</li>
+</ul>
+</li>
+<li>Fase di gioco:
+<ul>
+<li>Per ogni mano, ogni giocatore gioca a turno una carta fino a che le carte in mano sono esaurite</li>
+<li>A questo punto, si danno altre 3 carte a testa ai giocatori</li>
+</ul>
+</li>
+<li>Condizione di fine partita:
+<ul>
+<li>Le carte del mazzo sono terminate, e i giocatori hanno esaurito le carte dell’ultima mano</li>
+</ul>
+</li>
+</ul>
+<p>Il programma da la possibilità di segure il gioco “passo a
+passo&quot;:</p>
+<ul>
+<li>Per ogni carta giocata da un giocatore, visualizzare
+la carta giocata e la situazione del gioco:
+<ul>
+<li>che carte sono in mano ad ogni giocatore</li>
+<li>che carte sono sul tavolo</li>
+<li>che carte sono ancora nel mazzo</li>
+</ul>
+</li>
+</ul>
+<h2 id="scelte-progettuali">Scelte progettuali</h2>
+<p>Ogni entità del progetto è rapppresentata e condivisibile tramite un <em>header file</em> associato che fornisce funzioni e strutture.<br>
+Il gioco della <em>scopa</em> viene emulato da un'entità <strong>engine</strong> che ha come dipendenze tutti i domini del gioco e li gestisce secondo le regole presabilite.</p>
+<pre>
+PRJ:.
+├───20181114_CARTE
+│   │   makefile
+│   │   README.md
+│   ├───out <span style="color: forestgreen">//Generated output dir</span>
+│   │   ├───src
+│   │   │       main
+│   │   └───test
+│   │           test
+│   ├───src
+│   │   │   main.c <span style="color: forestgreen">//Main</span>
+│   │   │
+│   │   ├───engine <span style="color: forestgreen">// Contiene gli engin dei giochi di carte</span>
+│   │   │       scopa.c
+│   │   │       scopa.h
+│   │   │
+│   │   └───model <span style="color: forestgreen">// Contiene il dominio del gioco</span>
+│   │           card.c
+│   │           card.h
+│   │           deck.c
+│   │           deck.h
+│   │           domain.h
+│   │           player.c
+│   │           player.h
+│   │           table.c
+│   │           table.h
+│   └───test
+│           test.c <span style="color: forestgreen">//File di test</span>
+└───shared <span style="color: forestgreen">// Filoe condivisi (librerie)</span>
+        liste_code.c
+        liste_code.h
+</pre>
+<h2 id="descrizione-delle-strutture-dati-utilizzate">Descrizione delle strutture dati utilizzate</h2>
+<p>Le strutture utilizzte sono estensioni dei tipi <strong>coda</strong> e <strong>pila</strong> o della struttura <strong>lista</strong>, precedentemente implementate nella libreria <a href="../shared/liste_code.h">liste_code.h</a></p>
+<blockquote>
+<h3 id="carta---srcmodelcardh">Carta - <a href="src/model/card.h">src/model/card.h</a></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">enum</span> s { <span class="hljs-comment">// Rappresentazione dei SEMI</span>
+   DIAMOND = <span class="hljs-number">0</span>,
+   CLUBS = <span class="hljs-number">1</span>,
+   HARTH = <span class="hljs-number">2</span>,
+   SPADES = <span class="hljs-number">3</span>
+} Suit;
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+   <span class="hljs-keyword">int</span> value;
+   Suit suit;
+} Card;
+
+<span class="hljs-comment">// Inizializza la carta</span>
+<span class="hljs-function">Card* <span class="hljs-title">card__init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value, Suit suit)</span></span>;
+<span class="hljs-comment">// Stampa una carta su fp</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">card__print</span><span class="hljs-params">(Card* card, FILE* fp)</span></span>;
+<span class="hljs-comment">//Stampa generico per foreach di List</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">card__print_for_list</span><span class="hljs-params">(<span class="hljs-keyword">void</span>* card)</span></span>;
+</div></code></pre>
+</blockquote>
+<blockquote>
+<h3 id="mazzo---srcmodeldeckh">Mazzo - <a href="src/model/deck.h">src/model/deck.h</a></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">//il mazzo è una coda</span>
+<span class="hljs-keyword">typedef</span> Queue Deck; 
+
+<span class="hljs-comment">//Inizializza il mazzo</span>
+<span class="hljs-function">Deck* <span class="hljs-title">deck__init</span><span class="hljs-params">()</span></span>; 
+<span class="hljs-comment">//mischia il mazzo tramite "ruffle shuffle"</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deck__shuffle</span><span class="hljs-params">(Deck* deck)</span></span>;
+<span class="hljs-comment">//mischia un numero rando di volte tra 3 e 6 il mazzo</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deck__good_shuffle</span><span class="hljs-params">(Deck* deck)</span></span>; 
+<span class="hljs-comment">//togli una carta dala cima del mazzo e te la restituisce</span>
+<span class="hljs-function">Card* <span class="hljs-title">deck__draw</span><span class="hljs-params">(Deck* deck)</span></span>;
+
+<span class="hljs-comment">//Utililties</span>
+
+<span class="hljs-comment">//Stampa il deck</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deck__print</span><span class="hljs-params">(Deck* deck)</span></span>; 
+<span class="hljs-comment">//Restituisce se il mmazzo è vuoto</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">deck__is_empty</span><span class="hljs-params">(Deck* deck)</span></span>; 
+<span class="hljs-comment">// Restituiisce il numero di carte dentro il deck</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">deck__count</span><span class="hljs-params">(Deck* deck)</span></span>;
+</div></code></pre>
+</blockquote>
+<blockquote>
+<h3 id="tavolo---srcmodeltableh">Tavolo - <a href="src/model/table.h">src/model/table.h</a></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">//Il Tavolo è una lista</span>
+<span class="hljs-keyword">typedef</span> List Table;
+
+<span class="hljs-comment">// Inizializza il tavolo</span>
+<span class="hljs-function">Table <span class="hljs-title">table__init</span><span class="hljs-params">()</span></span>;
+<span class="hljs-comment">//Prende una carta card e la mette sul tavolo</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">table__play</span><span class="hljs-params">(Table *table, Card *card)</span></span>;
+
+<span class="hljs-comment">//Utilities</span>
+
+<span class="hljs-comment">//Stampa tutte le carte che ci sono sul tavolo</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">table__print</span><span class="hljs-params">(Table table)</span></span>;
+</div></code></pre>
+</blockquote>
+<blockquote>
+<h3 id="giocatore---srcmodelplayerh">Giocatore - <a href="src/model/player.h">src/model/player.h</a></h3>
+<pre class="hljs"><code><div><span class="hljs-comment">//Il giocatore è una pila (le carte che ha in male)</span>
+<span class="hljs-keyword">typedef</span> Stack Player;
+
+<span class="hljs-comment">//Inizializza il giocatore</span>
+<span class="hljs-function">Player <span class="hljs-title">player__init</span><span class="hljs-params">()</span></span>;
+<span class="hljs-comment">// Dato un deck il giocatore ne pesta num_cards carte</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">player__draw</span><span class="hljs-params">(Deck* deck, Player* player, <span class="hljs-keyword">int</span> num_cards)</span></span>;
+<span class="hljs-comment">// Verifica se il giocatore ha la mano vuota</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">player__empty_hand</span><span class="hljs-params">(Player player)</span></span>;+
+<span class="hljs-comment">// Fa giocare una carta (pop sulla lista)</span>
+<span class="hljs-function">Card* <span class="hljs-title">player__play</span><span class="hljs-params">(Player* player)</span></span>;
+
+<span class="hljs-comment">// Utilities</span>
+
+<span class="hljs-comment">// Stampa tutte le carte in mano ad un giocatore</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">player__print</span><span class="hljs-params">(Player player)</span></span>;
+</div></code></pre>
+</blockquote>
+<blockquote>
+<h3 id="engine-di-scopa---srcenginescopah">Engine di Scopa - <a href="src/engine/scopa.h">src/engine/scopa.h</a></h3>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX_PLAYERS 4</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> {</span>
+   Table table;
+   Deck* deck;
+   Player players[MAX_PLAYERS];
+   <span class="hljs-keyword">int</span> num_players;
+   <span class="hljs-keyword">int</span> turn;
+} Scopa_e;
+
+<span class="hljs-comment">//Inizializza l'engin con n giocatori con la mano</span>
+<span class="hljs-comment">// vuota, un mazzo non mescolato e il tavolo</span>
+<span class="hljs-comment">// vuoto</span>
+<span class="hljs-function">Scopa_e* <span class="hljs-title">scopa_engine__init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num_players)</span></span>;
+
+<span class="hljs-comment">// Passa al sucessivo "frame" di gioco</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scopa_engine__step</span><span class="hljs-params">(Scopa_e* scopa_engine)</span></span>;
+
+<span class="hljs-comment">// Mischia il mazzo, fa pescare a tutti i giocatori</span>
+<span class="hljs-comment">// tre carte e ne mette quattro sul tavolo</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scopa_engine__reset</span><span class="hljs-params">(Scopa_e* scopa_engine)</span></span>;
+
+<span class="hljs-comment">// Stampa la condizione di gioco</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scopa_engine__print_status</span><span class="hljs-params">(Scopa_e* scopa_engine)</span></span>;
+
+<span class="hljs-comment">// Verifica se siamo arrivati ad </span>
+<span class="hljs-comment">// una condizione di gioco finito</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">scopa_engine__is_game_end</span><span class="hljs-params">(Scopa_e* scopa_engine)</span></span>;
+</div></code></pre>
+</blockquote>
+<h2 id="algoritmo-di-mescolamento">Algoritmo di &quot;mescolamento&quot;</h2>
+<pre>
+algoritmo deck__shuffle(Deck deck)
+    <span style="color: forestgreen">// Condizione di ritorno:
+    // se il mazzo ha 1 carta è mescolato</span>
+    <span style="color: magenta">IF</span> size(deck) < 2 <span style="color: magenta">THEN</span> return
+    Deck support
+    <span style="color: forestgreen">// Divido il mazzo in due</span>
+    <span style="color: magenta">FOR</span> i = 0 <span style=ù"color: magenta">TO</span> size(deck)/2 <span style="color: grey"> COSTO: n/2 </span>
+        aggiungo a support la prima carta di deck
+    <span style="color: forestgreen">// Mescolo i due sottomazzi che ho creato</span>
+    deck__shuffle(support) <span style="color: grey"> COSTO: T(n/2) </span>
+    deck__shuffle(deck) <span style="color: grey"> COSTO: T(n/2) </span>
+    Deck result
+    <span style="color: forestgreen">// Effettuo il "vero" ruffle shuffle</span>
+    <span style="color: magenta">WHILE</span>(!is_empty(deck) && !is_empty(support)) <span style="color: grey"> COSTO: n</span>
+        <span style="color: forestgreen">// Fintanto che ho carte nei sottomazzi
+        // lancio una moneta (0 o 1) per capire da 
+        // quale mazzo pescare una carta per comporre 
+        // il mazzo mescolato "result".
+        // Se in un mazzo non ci sono più carte metto in result
+        // tutte le carte rimanenti</span>
+        <span style="color: magenta">IF</span> (coin_flip() || is_empty(support) && !is_empty(deck)) <span style="color: magenta">THEN</span>
+            aggiungo a result la prima carta di deck
+        <span style="color: magenta">ELSE</span>
+            aggiungo a result la prima carta di support
+    cambio il riffedrimento a deck con result
+</pre>
+<p>Dal precedente algoritmo si può dedurre la seguente relazione di ricorrenza:</p>
+<div align="center">
+<p><img src="https://latex.codecogs.com/gif.latex?\begin{cases} T(0) = T(1) = 0\\ T(n) = 2T( \frac{n}{2} ) + \frac{3}{2}n \end{cases}" alt="eqazione di ricorrenza"></p>
+</div>
+Dato che la relazione di ricorrenza precedente è della forma 
+<div align="center">
+<p><img src="https://latex.codecogs.com/gif.latex?T(n) = \begin{cases} aT(\frac{n}{b}) \Leftarrow n &gt; k\\ c \Leftarrow n \leq k \end{cases}" alt="t_master"></p>
+</div>
+<p>è applicabile il <em>&quot;Teorema Master&quot;</em></p>
+<div align="center">
+<p><img src="https://latex.codecogs.com/gif.latex?\begin{cases} a = 2\\ b = 2\\ f(n) = \frac{3}{2}\\g(n) = n^{lob_ba} = n^{log_22}=n^1 = n \end{cases}" alt="applicazione"></p>
+</div>
+<p>Dala relazione possiamo stabilire che:</p>
+<div align="center">
+<p><img src="https://latex.codecogs.com/gif.latex?f(n) = \Theta (g(n)) \Rightarrow T(n) = \Theta (n \cdot log(n))" alt="asin"></p>
+</div>
+</body>
+</html>
