@@ -16,6 +16,3 @@ tutti: clear $(MAIN)
 
 clear:
 	clear
-
-clean:
-	rm -rf *.o *.exe $(MAIN)
