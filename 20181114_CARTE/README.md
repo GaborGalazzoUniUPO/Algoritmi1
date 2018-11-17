@@ -221,7 +221,7 @@ Dato che la relazione di ricorrenza precedente è della forma
 
 </div>
 
-in questo caso è applicabile il *"Teorema Master"*
+è applicabile il *"Teorema Master"*
 
 <div style="text-align:center">
 
