@@ -28,7 +28,10 @@ la carta giocata e la situazione del gioco:
 ## Scelte progettuali
 
 Ogni entità del progetto è rapppresentata e condivisibile tramite un *header file* associato che fornisce funzioni e strutture.  
-Il gioco della *scopa* viene emulato da un'entità **engine** che ha come dipendenze tutti i domini del gioco e li gestisce secondo le regole presabilite.
+Il gioco della *scopa* viene emulato da un'entità **engine** che ha come dipendenze tutti i domini del gioco e li gestisce secondo le regole presabilite.  
+L'interazione con l'utente è gestita nel main;
+Dato che non è stato esplicitamente rischiesto si è optato per ignorare i memory leak generati dalle *malloc()*
+##### SRC TREE:
 <pre>
 PRJ:.
 ├───20181114_CARTE
@@ -186,16 +189,16 @@ algoritmo deck__shuffle(Deck deck)
     <span style="color: forestgreen">// Condizione di ritorno:
     // se il mazzo ha 1 carta è mescolato</span>
     <span style="color: magenta">IF</span> size(deck) < 2 <span style="color: magenta">THEN</span> return
-    Deck support
+    Deck support <span style="color: grey"> COSTO S: 1 </span>
     <span style="color: forestgreen">// Divido il mazzo in due</span>
-    <span style="color: magenta">FOR</span> i = 0 <span style="color: magenta">TO</span> size(deck)/2 <span style="color: grey"> COSTO: n/2 </span>
+    <span style="color: magenta">FOR</span> i = 0 <span style="color: magenta">TO</span> size(deck)/2 <span style="color: grey"> COSTO T: n/2 </span>
         aggiungo a support la prima carta di deck
     <span style="color: forestgreen">// Mescolo i due sottomazzi che ho creato</span>
-    deck__shuffle(support) <span style="color: grey"> COSTO: T(n/2) </span>
-    deck__shuffle(deck) <span style="color: grey"> COSTO: T(n/2) </span>
-    Deck result
+    deck__shuffle(support) <span style="color: grey"> COSTO T: T(n/2); COSTO S: S(n/2) </span>
+    deck__shuffle(deck) <span style="color: grey"> COSTO T: T(n/2); COSTO S: S(n/2) </span>
+    Deck result <span style="color: grey"> COSTO S: 1 </span>
     <span style="color: forestgreen">// Effettuo il "vero" ruffle shuffle</span>
-    <span style="color: magenta">WHILE</span>(!is_empty(deck) && !is_empty(support)) <span style="color: grey"> COSTO: n</span>
+    <span style="color: magenta">WHILE</span>(!is_empty(deck) && !is_empty(support)) <span style="color: grey"> COSTO T: n</span>
         <span style="color: forestgreen">// Fintanto che ho carte nei sottomazzi
         // lancio una moneta (0 o 1) per capire da 
         // quale mazzo pescare una carta per comporre 
@@ -236,4 +239,10 @@ Dala relazione possiamo stabilire che:
 <div align="center">
 
 ![asin](https://latex.codecogs.com/gif.latex?f%28n%29%20%3D%20%5CTheta%20%28g%28n%29%29%20%5CRightarrow%20T%28n%29%20%3D%20%5CTheta%20%28n%20%5Ccdot%20log%28n%29%29)
+</div>
+
+Con un osservazione un po' più accurata si può anche stabilire che qusto algoritmo non è il massimo nei termini di "fattore spazio", infatti, se applichiamo il teorema master  contando lo spazio e non il numero di operazioni viene fuori che:
+<div align="center">
+
+![spazio](https://latex.codecogs.com/gif.latex?S%28n%29%3D%5CTheta%28n%29)
 </div>
