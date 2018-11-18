@@ -209,7 +209,7 @@ algoritmo deck__shuffle(Deck deck)
             aggiungo a result la prima carta di deck
         <span style="color: magenta">ELSE</span>
             aggiungo a result la prima carta di support
-    cambio il riffedrimento a deck con result
+    cambio il riferimento a deck con result
 </pre>
 Dal precedente algoritmo si può dedurre la seguente relazione di ricorrenza:
 
@@ -230,7 +230,7 @@ Dato che la relazione di ricorrenza precedente è della forma
 
 <div align="center">
 
-![applicazione](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20a%20%3D%202%5C%5C%20b%20%3D%202%5C%5C%20f%28n%29%20%3D%20%5Cfrac%7B3%7D%7B2%7D%5C%5Cg%28n%29%20%3D%20n%5E%7Blob_ba%7D%20%3D%20n%5E%7Blog_22%7D%3Dn%5E1%20%3D%20n%20%5Cend%7Bcases%7D)
+![applicazione](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20a%20%3D%202%5C%5C%20b%20%3D%202%5C%5C%20f%28n%29%20%3D%20%5Cfrac%7B3%7D%7B2%7Dn%5C%5Cg%28n%29%20%3D%20n%5E%7Blob_ba%7D%20%3D%20n%5E%7Blog_22%7D%3Dn%5E1%20%3D%20n%20%5Cend%7Bcases%7D)
 
 </div>
 
