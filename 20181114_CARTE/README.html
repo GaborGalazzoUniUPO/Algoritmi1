@@ -394,7 +394,7 @@ Lo scheletro è programmato per funzionare nel seguente modo:</p>
 <ul>
 <li>Giocatori: 4 stack inizializzati e vuoti</li>
 <li>Carte sul tavolo: lista inizializzata e vuota</li>
-<li>Mazzo di carte: coda di 40 carte “ordinate”</li>
+<li>Mazzo di carte: coda di 52 carte “ordinate”</li>
 </ul>
 </li>
 <li>Prima mano:
@@ -429,7 +429,7 @@ la carta giocata e la situazione del gioco:
 </li>
 </ul>
 <h2 id="scelte-progettuali">Scelte progettuali</h2>
-<p>Ogni entità del progetto è rapppresentata e condivisibile tramite un <em>header file</em> associato che fornisce funzioni e strutture.<br>
+<p>Ogni entità del progetto è rappresentata e condivisibile tramite un <em>header file</em> associato che fornisce funzioni e strutture.<br>
 Il gioco della <em>scopa</em> viene emulato da un'entità <strong>engine</strong> che ha come dipendenze tutti i domini del gioco e li gestisce secondo le regole presabilite.<br>
 L'interazione con l'utente è gestita nel <strong>main()</strong>.<br>
 Dato che non è stato esplicitamente rischiesto si è optato per ignorare i memory leak generati dalle <em>malloc()</em></p>

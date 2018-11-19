@@ -6,7 +6,7 @@ Lo scheletro è programmato per funzionare nel seguente modo:
 * Situazione iniziale:
     * Giocatori: 4 stack inizializzati e vuoti
     * Carte sul tavolo: lista inizializzata e vuota
-    * Mazzo di carte: coda di 40 carte “ordinate”
+    * Mazzo di carte: coda di 52 carte “ordinate”
 * Prima mano:
     * Mescolare il mazzo
     * Dare le carte ai giocatori (3 a testa)
@@ -27,7 +27,7 @@ la carta giocata e la situazione del gioco:
 
 ## Scelte progettuali
 
-Ogni entità del progetto è rapppresentata e condivisibile tramite un *header file* associato che fornisce funzioni e strutture.  
+Ogni entità del progetto è rappresentata e condivisibile tramite un *header file* associato che fornisce funzioni e strutture.  
 Il gioco della *scopa* viene emulato da un'entità **engine** che ha come dipendenze tutti i domini del gioco e li gestisce secondo le regole presabilite.  
 L'interazione con l'utente è gestita nel **main()**.   
 Dato che non è stato esplicitamente rischiesto si è optato per ignorare i memory leak generati dalle *malloc()*
