@@ -9,6 +9,8 @@
 !*.gitkeep
 !*.pdf
 !*.html
+!*.xlsx
+!*.png
 
 
 # Unignore all dirs
