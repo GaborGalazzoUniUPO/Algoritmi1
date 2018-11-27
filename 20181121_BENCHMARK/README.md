@@ -60,8 +60,31 @@ int main(int argc, char* argv[])
 
 ## Risultati Finali
 
-![1](doc/max500.png)
+![fig. 1.1](doc/max500.png)
 
-![2](doc/max5000all.png)
+![fig. 1.2](doc/max5000all.png)
 
-![3](doc/max5000hq.png)
+![f1.3](doc/max5000hq.png)
+
+#### Per una migliore comprensione si consiglia di visualizzare il file [Benchmark_graphs.xls](doc/Benchmark_graphs.xlsx)
+
+##### Le curve di asintotico sono realizzate applicando un restringimento del codominio basato sugli ipotetici valori di T(n)
+
+## Commenti e considerazioni sui grafici ottenuti
+### L’andamento della complessità pratica rispecchia quella teorica vista a lezione? 
+> Direi di si, dato che: come si può vedere in [fig 1.1]() e [fig.1.3]() i valori effettivi bubble, heap e quick sono molto prossimi ai loro asintotici ![as](https://latex.codecogs.com/gif.latex?%5CTheta%20%28n%5E%7B2%7D%29%2C%20%5CTheta%20%28n%5Ccdot%20log%28n%29%29%2C%20O%28n%5Ccdot%20log%28n%29%29)
+### Quale algoritmo è risultato essere il più veloce, generalmente?
+
+> Il `quickSort` è l'algoritmo generalmente più veloce
+
+### Ci sono casi particolari in cui scegliereste un algoritmo piuttosto di un altro?
+
+> Nei casi in cui si vuole "garantire" ![nlogn](https://latex.codecogs.com/gif.latex?T%28n%29%20%3D%20%5CTheta%20%28n%5Ccdot%20log%28n%29%29) bisognerebbe optare sull'`heapsort`; mentre se non c'è una necessità effettiva di questa garanzia il `quicksort` è il più consigliabile.
+
+### Algoritmi con la stessa complessità asintotica hanno lo stesso comportamento, se confrontati tra loro?
+
+> Come si può ben evidenziare dalla [fig. 1.3](#) i due algoritmi hanno lo stesso comportamento in termini di asintotico, il `quicksort` è più veloce a causa del minor numero di istruzioni macchina per ciclo. Invece dal punto di vista della stabilità: più l'array diventa grande più l'`heapsort` si stabilizza, viceversa il `quicksort`.
+
+### Quale algoritmo scegliereste, in generale? E’ lo stesso che avreste scelto prima dei test?
+
+> In generale sceglierei sempre il `quicksort` dato che è sperimentalmente dimostrabile che sia generalmente più veloce. E si, è lo stesso che avrei scelto prima del test per lo stesso motico indicato sopra: preferisco andare il 60% delle volte più veloce rispetto che avere la garanzia di non superare una determinata soglia, dato che non ve ne sono.
