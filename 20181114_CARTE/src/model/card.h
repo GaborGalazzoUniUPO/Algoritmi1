@@ -28,5 +28,5 @@ Card *card__init(int value, Suit suit);
 // Stampa una carta su fp
 void card__print(Card *card, FILE *fp);
 
-//Stampa generico per foreach di List
+//Stampa generico per foreach di list_t
 void card__print_for_list(void *card);

@@ -2,10 +2,10 @@
 * Rappresentiamo un mazzo di carte francesi
 */
 
-#include "../../../shared/liste_code.h"
+#include "../../../shared/list_stack_queue.h"
 #ifndef DECK_H
 #define DECK_H
-typedef Queue Deck;
+typedef queue_t Deck;
 #endif
 
 #include <time.h>

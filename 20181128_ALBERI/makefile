@@ -1,7 +1,7 @@
 
 CC=gcc
 CFLAGS=-g -Wall -std=c99 -O
-MAIN=intbtree
+MAIN=tree
 SHARED_H = $(wildcard ../shared/*.h)
 SHARED_C = $(wildcard ../shared/*.c)
 

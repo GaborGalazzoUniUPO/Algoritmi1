@@ -3,13 +3,13 @@
  * Rappresentiamo un giocatore di carte
  */
 
-#include "../../../shared/liste_code.h"
+#include "../../../shared/list_stack_queue.h"
 #include "deck.h"
 
 #ifndef PLAYER_H
 #define PLAYER_H
 //Il giocatore è una pila (le carte che ha in male)
-typedef Stack Player;
+typedef stack_t Player;
 #endif
 
 //Inizializza il giocatore

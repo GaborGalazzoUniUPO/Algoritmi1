@@ -1,9 +1,9 @@
-#include "../../../shared/liste_code.h"
+#include "../../../shared/list_stack_queue.h"
 #include "card.h"
 
 #ifndef TABLE_H
 #define TABLE_H
-typedef List Table;
+typedef list_t Table;
 #endif
 
 Table table__init();

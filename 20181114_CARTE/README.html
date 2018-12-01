@@ -486,14 +486,14 @@ PRJ:.
 <span class="hljs-function">Card* <span class="hljs-title">card__init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value, Suit suit)</span></span>;
 <span class="hljs-comment">// Stampa una carta su fp</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">card__print</span><span class="hljs-params">(Card* card, FILE* fp)</span></span>;
-<span class="hljs-comment">//Stampa generico per foreach di List</span>
+<span class="hljs-comment">//Stampa generico per foreach di list_t</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">card__print_for_list</span><span class="hljs-params">(<span class="hljs-keyword">void</span>* card)</span></span>;
 </div></code></pre>
 </blockquote>
 <blockquote>
 <h3 id="mazzo---srcmodeldeckh">Mazzo - <a href="src/model/deck.h">src/model/deck.h</a></h3>
 <pre class="hljs"><code><div><span class="hljs-comment">//il mazzo è una coda</span>
-<span class="hljs-keyword">typedef</span> Queue Deck; 
+<span class="hljs-keyword">typedef</span> queue_t Deck;
 
 <span class="hljs-comment">//Inizializza il mazzo</span>
 <span class="hljs-function">Deck* <span class="hljs-title">deck__init</span><span class="hljs-params">()</span></span>; 
@@ -517,7 +517,7 @@ PRJ:.
 <blockquote>
 <h3 id="tavolo---srcmodeltableh">Tavolo - <a href="src/model/table.h">src/model/table.h</a></h3>
 <pre class="hljs"><code><div><span class="hljs-comment">//Il Tavolo è una lista</span>
-<span class="hljs-keyword">typedef</span> List Table;
+<span class="hljs-keyword">typedef</span> list_t Table;
 
 <span class="hljs-comment">// Inizializza il tavolo</span>
 <span class="hljs-function">Table <span class="hljs-title">table__init</span><span class="hljs-params">()</span></span>;
@@ -533,7 +533,7 @@ PRJ:.
 <blockquote>
 <h3 id="giocatore---srcmodelplayerh">Giocatore - <a href="src/model/player.h">src/model/player.h</a></h3>
 <pre class="hljs"><code><div><span class="hljs-comment">//Il giocatore è una pila (le carte che ha in male)</span>
-<span class="hljs-keyword">typedef</span> Stack Player;
+<span class="hljs-keyword">typedef</span> stack_t Player;
 
 <span class="hljs-comment">//Inizializza il giocatore</span>
 <span class="hljs-function">Player <span class="hljs-title">player__init</span><span class="hljs-params">()</span></span>;

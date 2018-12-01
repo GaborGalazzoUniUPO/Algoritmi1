@@ -22,7 +22,7 @@ Deck *deck__init()
 void deck__shuffle(Deck *deck)
 {
     srand(time(NULL));
-    int size = list__size(deck->primo);
+    int size = list__size(deck->first);
     if (size < 2)
         return;
     Deck *support = queue__init();
@@ -67,10 +67,10 @@ Card *deck__draw(Deck *deck)
 
 void deck__print(Deck *deck)
 {
-    list__foreach(deck->primo, card__print_for_list);
+    list__foreach(deck->first, card__print_for_list);
 }
 
 int deck__count(Deck *deck)
 {
-    return list__size(deck->primo);
+    return list__size(deck->first);
 }

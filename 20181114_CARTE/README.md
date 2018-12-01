@@ -67,7 +67,7 @@ PRJ:.
 </pre>
 
 ## Descrizione delle strutture dati utilizzate
-Le strutture utilizzte sono estensioni dei tipi **coda** e **pila** o della struttura **lista**, precedentemente implementate nella libreria [liste_code.h](../shared/liste_code.h)
+Le strutture utilizzte sono estensioni dei tipi **coda** e **pila** o della struttura **lista**, precedentemente implementate nella libreria [liste_code.h](../shared/list_stack_queue.h)
 
 > ### Carta - [src/model/card.h](src/model/card.h)
 > ```c
@@ -86,14 +86,14 @@ Le strutture utilizzte sono estensioni dei tipi **coda** e **pila** o della stru
 > Card* card__init(int value, Suit suit);
 > // Stampa una carta su fp
 > void card__print(Card* card, FILE* fp);
-> //Stampa generico per foreach di List
+> //Stampa generico per foreach di list_t
 > void card__print_for_list(void* card);
 > ```
 
 > ### Mazzo - [src/model/deck.h](src/model/deck.h)
 > ```c
 > //il mazzo è una coda
->typedef Queue Deck; 
+>typedef queue_t Deck; 
 >
 >//Inizializza il mazzo
 >Deck* deck__init(); 
@@ -117,7 +117,7 @@ Le strutture utilizzte sono estensioni dei tipi **coda** e **pila** o della stru
 > ### Tavolo - [src/model/table.h](src/model/table.h)
 > ```c
 >//Il Tavolo è una lista
->typedef List Table;
+>typedef list_t Table;
 >
 >// Inizializza il tavolo
 >Table table__init();
@@ -133,7 +133,7 @@ Le strutture utilizzte sono estensioni dei tipi **coda** e **pila** o della stru
 > ### Giocatore - [src/model/player.h](src/model/player.h)
 > ```c
 >//Il giocatore è una pila (le carte che ha in male)
->typedef Stack Player;
+>typedef stack_t Player;
 >
 >//Inizializza il giocatore
 >Player player__init();
