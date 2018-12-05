@@ -1,6 +1,6 @@
 
 CC=gcc
-CFLAGS=-g -Wall -std=c99 -O
+CFLAGS=-g -Wall -std=c99
 MAIN=brt
 SHARED_H = $(wildcard ../shared/*.h)
 SHARED_C = $(wildcard ../shared/*.c)

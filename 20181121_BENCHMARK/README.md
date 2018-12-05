@@ -69,6 +69,8 @@ int main(int argc, char* argv[])
 #### Per una migliore comprensione si consiglia di visualizzare il file [Benchmark_graphs.xls](doc/Benchmark_graphs.xlsx)
 
 ##### Le curve di asintotico sono realizzate applicando un restringimento del codominio basato sugli ipotetici valori di T(n)
+![example](https://latex.codecogs.com/gif.latex?Ex%3A%20O%28n%5Ccdot%20log%28n%29%29%20%3D%20actualSize%20%5Ccdot%20log_2%28actualSize%29%20%5Ccdot%20%5Cfrac%7BmaxValue%7D%7Blog_2%28MaxSize%29%7D)
+
 
 ## Commenti e considerazioni sui grafici ottenuti
 ### L’andamento della complessità pratica rispecchia quella teorica vista a lezione? 

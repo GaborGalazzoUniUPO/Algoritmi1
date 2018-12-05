@@ -18,7 +18,7 @@ bnode_t* bnode__make(info_t inf);
 
 void btree__print(FILE *fp, btree_t btree);
 
-void btree__destroy(btree_t btree);
+void btree__destroy(btree_t* btree);
 
 int btree__height(btree_t btree);
 

@@ -73,47 +73,142 @@ int bstsearch(brtree_t brt, int needle)
 }
 /************************************************/
 
+int brtree__insert_hc(btree_t *brt, info_t inf)
+{
+    if (*brt == NULL)
+    {
+        btree_t btree = bnode__make(inf);
+        (*brt) = btree;
+        return 0;
+    }
+    if (inf.key < (*brt)->inf.key)
+    {
+        return 1 + brtree__insert_hc(&((*brt)->l), inf);
+    }
+    else
+    {
+        return 1 + brtree__insert_hc(&((*brt)->r), inf);
+    }
+}
+
+/********************************************/
+
+/* C implementation QuickSort */
+#include <stdio.h>
+
+// A utility function to swap two elements
+void swap(int *a, int *b)
+{
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+/* This function takes last element as pivot, places 
+   the pivot element at its correct position in sorted 
+    array, and places all smaller (smaller than pivot) 
+   to left of pivot and all greater elements to right 
+   of pivot */
+int partition(int arr[], int low, int high, int *hit)
+{
+    int pivot = arr[high]; // pivot
+    int i = (low - 1);     // Index of smaller element
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        // If current element is smaller than or
+        // equal to pivot
+        (*hit)++;
+        if (arr[j] <= pivot)
+        {
+            i++; // increment index of smaller element
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+/* The main function that implements QuickSort 
+ arr[] --> Array to be sorted, 
+  low  --> Starting index, 
+  high  --> Ending index */
+int quickSort_hc(int arr[], int low, int high)
+{
+    int hit = 0;
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[p] is now 
+           at right place */
+
+        int pi = partition(arr, low, high, &hit);
+
+        // Separately sort elements before
+        // partition and after partition
+        hit += quickSort_hc(arr, low, pi - 1);
+        hit += quickSort_hc(arr, pi + 1, high);
+    }
+    return hit;
+}
+
+/*************************************/
+
 #define MAX 100
 
-void test(FILE* fp, int dim, int rtempt)
+void test(FILE *fp, int dim, int rtempt, int narray)
 {
 
-    srand(time(NULL));
-
     //Opzione 1: Inizializzazione
+
+    int *temp = malloc(sizeof(int) * dim);
+    double t__build_brt = 0;
+    double t__qsort = 0;
+    double h__build_brt = 0;
+    double h__qsort = 0;
 
     int *archive = malloc(sizeof(int) * dim);
     btree_t brt = brtree__make();
 
-    // Opzione 2: Caricamento dell’array con numeri casual
-    for (int i = 0; i < dim; i++)
+    for (int k = 0; k < narray; k++)
     {
-        archive[i] = rand() % MAX;
+
+        // Opzione 2: Caricamento dell’array con numeri casual
+        for (int i = 0; i < dim; i++)
+        {
+            temp[i] = rand() % dim * 5;
+        }
+
+        
+
+        // Opzione 3: Ordinamento
+        struct timeval start, end;
+
+        gettimeofday(&start, NULL);
+        for (int i = 0; i < dim; i++)
+        {
+            info_t inf;
+            inf.key = temp[i];
+            h__build_brt += brtree__insert_hc(&brt, inf);
+        }
+        gettimeofday(&end, NULL);
+
+        t__build_brt += (end.tv_sec + end.tv_usec * 1e-6) - (start.tv_sec + start.tv_usec * 1e-6) + 0.00001;
+
+        gettimeofday(&start, NULL);
+        for (int i = 0; i < dim; i++)
+        {
+            archive[i] = temp[i];
+        }
+        h__qsort += quickSort_hc(archive, 0, dim - 1);
+        gettimeofday(&end, NULL);
+
+        t__qsort += (end.tv_sec + end.tv_usec * 1e-6) - (start.tv_sec + start.tv_usec * 1e-6) + 0.00001;
+
+        if(k < (narray -1))
+            btree__destroy(&brt);
     }
 
-    // Opzione 3: Ordinamento
-    struct timeval start, end;
-
-    gettimeofday(&start, NULL);
-    for (int i = 0; i < dim; i++)
-    {
-        info_t inf;
-        inf.key = archive[i];
-        brtree__insert(&brt, inf);
-    }
-    gettimeofday(&end, NULL);
-
-    double t__build_brt = (end.tv_sec + end.tv_usec * 1e-6) - (start.tv_sec + start.tv_usec * 1e-6) + 0.00001;
-
-    gettimeofday(&start, NULL);
-    qsort(archive, dim, sizeof(int), int_cmp);
-    gettimeofday(&end, NULL);
-
-    double t__qsort = (end.tv_sec + end.tv_usec * 1e-6) - (start.tv_sec + start.tv_usec * 1e-6) + 0.00001;
-
-   
-    fprintf(fp, "%d,%lf,%lf,", dim, t__build_brt, t__qsort);
-    
+    fprintf(fp, "%d,%lf,%lf,%.2lf,%.2lf,", dim, t__build_brt / narray, t__qsort / narray, h__build_brt/narray , h__qsort/narray);
 
 // Opzioni 4 e 5: Stampe
 #if 0
@@ -124,34 +219,30 @@ void test(FILE* fp, int dim, int rtempt)
     printf("\n");
 #endif
 
-    int h_bin = 0;
-    int h_brt = 0;
+    double h_bin = 0;
+    double h_brt = 0;
 
     // Opzione 6: ricerca
     for (int i = 0; i < rtempt; i++)
     {
-        int r ; //= rand() % dim;
-      //  if(rand()%3<2)
-            r = archive[rand() % (dim-1)];
-        int a= mbsearch(archive, dim, r);
-        int b= bstsearch(brt, r);
-        h_bin += a;
-        h_brt += b;
-        printf("%d %d %d -- %d %d \n", r, a, b, h_bin, h_brt);
+        int r; //= rand() % dim;
+               //  if(rand()%3<2)
+        r = archive[rand() % (dim - 1)];
+        h_bin += mbsearch(archive, dim, r);
+        h_brt += bstsearch(brt, r);
     }
-     printf("-- %d %d\n", h_bin, h_brt);
-   
-    fprintf(fp, "%lf,%lf\n",  h_brt/rtempt, h_bin/rtempt);
+
+    fprintf(fp, "%.2lf,%.2lf\n", h_brt / rtempt, h_bin / rtempt);
 
     //Opzione 7: deallocazione
     free(archive);
-    btree__destroy(brt);
+    btree__destroy(&brt);
 }
 
-void banchmark(int runs, int rtempt, int max, int step)
+void banchmark(int narray, int rtempt, int max, int step)
 {
     FILE *fp = fopen("benchmark.csv", "wt+");
-    fprintf(fp, "\"dim array\",\"t build brt\",\"t qsort\",\"agv hit brtr\",\"avg hit bsearch\"");
+    fprintf(fp, "\"dim array\",\"avg time build brt\",\"avg time qsort\",\"avg hit build brt\",\"avg hit qsort\",\"agv hit brtr\",\"avg hit bsearch\"\n");
     if (fp == NULL)
     {
         perror("Errore apertura file create_time.csv");
@@ -159,20 +250,19 @@ void banchmark(int runs, int rtempt, int max, int step)
     }
     for (int i = step; i <= max; i += step)
     {
-        for (int j = 0; j < runs; j++)
-        {
-            test(fp, i, rtempt);
-        }
+        test(fp, i, rtempt, narray);
     }
     fclose(fp);
 }
 
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
 
     if (argc != 5)
     {
-        printf("Uso: %s n_runs rtempt max_dim step", argv[0]);
+        printf("Uso: %s n_array n_ricerche max_dim step", argv[0]);
+        exit(EXIT_FAILURE);
     }
 
     banchmark(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));

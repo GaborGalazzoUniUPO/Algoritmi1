@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
     btree_t barray = btree__from_array(array, num);
     btree__print(stdout, barray);
     free(array);
-    btree__destroy(btree);
+    btree__destroy(&btree);
     btree = barray;
 
     // Ex 7: Determinare se nella root di un albero binario risiede il valore 
@@ -141,5 +141,5 @@ int main(int argc, char *argv[])
 
 
 
-    btree__destroy(btree);
+    btree__destroy(&btree);
 }

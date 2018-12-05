@@ -93,13 +93,14 @@ void btree__print(FILE *fp, btree_t btree)
     print2DUtil(fp, btree, 0); 
 }
 
-void btree__destroy(btree_t btree)
+void btree__destroy(btree_t* btree)
 {
-    if (btree == NULL)
+    if (*btree == NULL)
         return;
-    btree__destroy(btree->l);
-    btree__destroy(btree->r);
-    free(btree);
+    btree__destroy(&((*btree)->l));
+    btree__destroy(&((*btree)->r));
+    free(*btree);
+    (*btree) = NULL;
 }
 
 #define max(a, b) \
