@@ -44,18 +44,25 @@ void pbrt_ord(brtree_t brt){
     if(n == 0)
         return 0;
     int m = n/2;
-    if(array[m] == x)
-        return 1;
-    return 1 + mbsearch(array, m, x) + mbsearch(array+m, n-m, x);
-    
+    if(x < array[m]){
+        return  1 + mbsearch(array, m, x);
+    }
+    if(x > array[m]){
+        return 1 + mbsearch(array+(m+1), n-(m+1), x);
+    }
+    return 1;
  }
 
  int bstsearch(brtree_t brt, int needle){
     if(brt == NULL)
         return 0;
-    if(brt->inf.key == needle)
-        return 1;
-    return 1 + bstsearch(brt->l, needle) + bstsearch(brt->r, needle);
+    if(needle < brt->inf.key){
+        return 1 + bstsearch(brt->l, needle);
+    }
+    if(needle > brt->inf.key){
+        return 1 + bstsearch(brt->r, needle);
+    }
+    return 1;
  }
 /************************************************/
 
@@ -102,15 +109,17 @@ void test(int dim, int rtempt){
         perror("Errore apertura file create_time.csv");
         exit(EXIT_FAILURE);
     }
-    fprintf(fp, "%d,%lf,%lf", dim, t__build_brt, t__qsort);
+    fprintf(fp, "%d,%lf,%lf\n", dim, t__build_brt, t__qsort);
     fclose(fp);
 
     // Opzioni 4 e 5: Stampe
+    #if 0
     printf("Print ARRAY\n");
     parray(archive, dim);
     printf("\nPrint BRT\n");
     pbrt_ord(brt);
     printf("\n");
+    #endif
 
     fp = fopen("search_time.csv", "at+");
     if(fp == NULL){
@@ -124,7 +133,7 @@ void test(int dim, int rtempt){
 
         int h_bin = mbsearch(archive, dim, r);
         int h_brt = bstsearch(brt, r);
-        fprintf(fp, "%d,%d,%d", dim, h_brt, h_bin);
+        fprintf(fp, "%d,%d,%d\n", dim, h_brt, h_bin);
 
     }
 
