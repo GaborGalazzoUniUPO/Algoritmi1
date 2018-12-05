@@ -23,6 +23,8 @@ void _btree__print(FILE *fp, btree_t btree, int space, int single)
     // Increase distance between levels
     space += COUNT;
 
+// Process right child first
+    _btree__print(fp, btree->r, space, btree->l == NULL);
     // Print current node after space
     // count
     //printf("\x0c3\x0c4");
@@ -50,15 +52,45 @@ void _btree__print(FILE *fp, btree_t btree, int space, int single)
     }
     fprintf(fp, "%d\n", btree->inf.key);
 
-    // Process right child first
-    _btree__print(fp, btree->r, space, btree->l == NULL);
+    
 
     // Process left child
     _btree__print(fp, btree->l, space, 1);
 }
+
+void print2DUtil(FILE* fp, btree_t root, int space) 
+{ 
+    // Base case 
+    if (root == NULL) 
+        return; 
+  
+    // Increase distance between levels 
+    space += COUNT; 
+  
+    // Process right child first 
+    print2DUtil(fp, root->r, space); 
+  
+    // Print current node after space 
+    // count 
+    fprintf(fp, "\n"); 
+    for (int i = COUNT; i < space; i++) 
+        fprintf(fp, " "); 
+    fprintf(fp, "%d\n", root->inf.key); 
+  
+    // Process left child 
+    print2DUtil(fp, root->l, space); 
+} 
+
+#if 0
 void btree__print(FILE *fp, btree_t btree)
 {
     _btree__print(fp, btree, 0, 0);
+}
+#endif
+
+void btree__print(FILE *fp, btree_t btree)
+{
+    print2DUtil(fp, btree, 0); 
 }
 
 void btree__destroy(btree_t btree)
