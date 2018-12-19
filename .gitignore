@@ -12,6 +12,7 @@
 !*.xlsx
 !*.png
 !*.csv
+!*.txt
 
 
 # Unignore all dirs
