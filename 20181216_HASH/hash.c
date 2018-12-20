@@ -33,15 +33,15 @@ void hashtl__destroy(hashtl_t hashtl, int dim, void (*destroy)(hentry_t *))
     free(hashtl);
 }
 
-void hashtl__insert(hashtl_t hashtl, int dim, hentry_t *entry, int (*hash)(void *))
+void hashtl__insert(hashtl_t hashtl, int dim, hentry_t *entry, unsigned long (*hash)(void *, int i, int M))
 {
-    int index = hash(entry->key) % dim;
+    int index = hash(entry->key,0,dim);
     list__insert(entry, &hashtl[index]);
 }
 
-element_t hashtl__search(hashtl_t hashtl, int dim, void *key, int (*hash)(void *), bool (*keq)(void *, void *))
+element_t hashtl__search(hashtl_t hashtl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
 {
-    int index = hash(key) % dim;
+    int index = hash(key,0,dim);
 
     list_t list = hashtl[index];
     while (list != NULL)
@@ -54,9 +54,9 @@ element_t hashtl__search(hashtl_t hashtl, int dim, void *key, int (*hash)(void *
     return NULL;
 }
 
-int hashtl__search_bm(hashtl_t hashtl, int dim, void *key, int (*hash)(void *), bool (*keq)(void *, void *))
+int hashtl__search_bm(hashtl_t hashtl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
 {
-    int index = hash(key) % dim;
+    int index = hash(key,0,dim);
 
     list_t list = hashtl[index];
     int i = 1;
@@ -113,13 +113,13 @@ void hashtsl__print(hashtsl_t hashtsl, int dim, FILE *fp, char *key_format)
             fprintf(fp, "NULL\n");
     }
 }
-void hashtsl__insert(hashtsl_t hashtsl, int dim, hentry_t *entry, int(hash)(void *))
+void hashtsl__insert(hashtsl_t hashtsl, int dim, hentry_t *entry, unsigned long(*hash)(void *, int i, int M))
 {
 
     int i = 0;
     do
     {
-        int index = (hash(entry->key) + i++) % dim;
+        int index = hash(entry->key,i++,dim);
         if (hashtsl[index] == NULL)
         {
             hashtsl[index] = entry;
@@ -128,13 +128,13 @@ void hashtsl__insert(hashtsl_t hashtsl, int dim, hentry_t *entry, int(hash)(void
     } while (i != dim);
 }
 
-element_t hashtsl__search(hashtsl_t hashtsl, int dim, void *key, int (*hash)(void *), bool (*keq)(void *, void *))
+element_t hashtsl__search(hashtsl_t hashtsl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
 {
     int i = 0;
     hentry_t *entry = NULL;
     do
     {
-        int index = (hash(key) + i++) % dim;
+        int index = hash(key, i++, dim);
         entry = hashtsl[index];
         if (entry != NULL && keq(entry->key, key))
         {
@@ -144,14 +144,14 @@ element_t hashtsl__search(hashtsl_t hashtsl, int dim, void *key, int (*hash)(voi
     return NULL;
 }
 
-int hashtsl__search_bm(hashtsl_t hashtsl, int dim, void *key, int (*hash)(void *), bool (*keq)(void *, void *))
+int hashtsl__search_bm(hashtsl_t hashtsl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
 {
     int i = 0;
     hentry_t *entry = NULL;
     int hit = 0;
     do
     {
-        int index = (hash(key) + i++) % dim;
+        int index = hash(key,i++,dim);
         hit++;
         entry = hashtsl[index];
         if (entry != NULL && keq(entry->key, key))
@@ -166,7 +166,8 @@ void hashtsl__destroy(hashtsl_t hashtsl, int dim, void (*destroy)(hentry_t *))
     for (int i = 0; i < dim; i++)
     {
         hentry_t *entry = hashtsl[i];
-        destroy(entry);
+        if(entry!=NULL)
+            destroy(entry);
         free(entry);
     }
 }
