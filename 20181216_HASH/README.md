@@ -11,26 +11,26 @@ L'applicativo procede con un <span style="color:lightblue">for</span> da *i* = 0
 
 
 ## Vantaggi e svantaggi
-Il vantagio principale di questo dipo di tabella si può contatare nel caso medio della ricerca dato che la funzione *hash(key)* ci da esattamente la lista in cui si trova l'elemento, la lista è piccola e quindi il numero di hits è solitamente una frazione 'piccola' (nel caso migliore 1/n) di **n**
+Il vantagio principale di questo tipo di tabella si può constatare nel caso medio della ricerca dato che la funzione *hash(key)* ci da esattamente la lista in cui si trova l'elemento, la lista è piccola e quindi il numero di hits è solitamente una frazione 'piccola' (nel caso migliore 1/n) di **n**
 
 Gli svantaggi sono: 
-* Il caso peggiore: la tabella può degenerare in una lista nel caso in cui tutte le chiavi del'insieme **K** collidano in un unica posizione. Questa problematica è facilmente arginabile in due mode: aumetando il fattore di carico e secgliendo un'opportuna hunzione *hash(key)* in grado di distribuire nel modo migliore il dominio **K**
-* Lo spazio: oltre ad allocare un array di dimensione **m** vengono allocate delle liste per gestire le collisioni e si hanno molteplici spazi vuoti all'interno del vettore *tabella*. Questa problematica è difficilmente arginabile dato che l'unico modo per rendere più efficiente in spazio questo metodo è scegliere un'opportuna hunzione *hash(key)* in grado di distribuire nel modo migliore il dominio **K**
+* Il caso peggiore: la tabella può degenerare in una lista nel caso in cui tutte le chiavi del'insieme **K** collidano in un unica posizione. Questa problematica è facilmente arginabile in due modi: aumetando il fattore di carico e secgliendo un'opportuna funzione *hash(key)* in grado di distribuire nel modo migliore il dominio **K**
+* Lo spazio: oltre ad allocare un array di dimensione **m** vengono allocate delle liste per gestire le collisioni e si hanno molteplici spazi vuoti all'interno del vettore *tabella*. Questa problematica è difficilmente arginabile dato che l'unico modo per rendere più efficiente in spazio questo metodo è scegliere un'opportuna funzione *hash(key)* in grado di distribuire nel modo migliore il dominio **K**
 
 ## Ulteriori constatazioni 
 
 ![graph](doc/graph.png)
 
-Si può vedere dal grafico che avg_lc (l'implementazione con lista di collisioni è mdeiamente la più veloce).
+Si può vedere dal grafico che avg_lc (l'implementazione con lista di collisioni) è mediamente la più veloce.
 Il fattore di carico ottimale sembrerebbe essere il 50% in quanto ha la media di hits più bassa.
 
 ## Aggiunte
 
 All'interno della cartella doc sono presenti i dupm delle tabelle hash per tipo e fattore di carico, nella sezione DATI, è presente il numero di hits per ricerca (si effettuano le ricerche degli studenti in studenti.txt nell'ordine inverso rispetto a quello in cui sono stati inseriti)
 
-Formato: `file_sorce~alpha~tipo_tabella.dat` (lc = lista collizione, sl = scansione lineare, sl2h = hashing doppio)
+Formato: `file_sorce~alpha~tipo_tabella.dat` (lc = lista collisione, sl = scansione lineare, sl2h = hashing doppio)
 
-[doc\studenti.txt~0.5~avg_lc.dat: ](doc\studenti.txt~0.5~avg_lc.dat)
+[`doc\studenti.txt\0.5\avg_lc.dat`: ](doc\studenti.txt~0.5~avg_lc.dat)
 ```
 [0] -> NULL
 [1] -> NULL

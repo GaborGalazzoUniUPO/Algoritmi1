@@ -394,20 +394,20 @@ blockquote {
 <p>L'applicativo procede con un <span style="color:lightblue">for</span> da <em>i</em> = 0.5 a 1.0 con un passo di 0.1; crea una <strong>tabella hash</strong> di dimenzione <code>table_dim</code> per ogni tipo di <em>gestione di collisioni</em>, nel nostro caso 3. Per ogni tabella legge dal file <code>in_file</code> <code>table_dim</code>*<em>i</em> elementi e li inserisce, poi effettua le ricerche salvando il numero medio di <strong>hits</strong>  per <strong>fattore di carico (α = table_dim*i)</strong> in <code>out_file</code>.</p>
 <h4 id="ai-fini-della-consegna-prender%C3%B2-in-considerazione-solo-i-risultati-derivanti-lutilizzo-di-una-tabella-hash-con-lista-di-adiacenza">Ai fini della consegna prenderò in considerazione solo i risultati derivanti l'utilizzo di una <strong>tabella hash con lista di adiacenza</strong></h4>
 <h2 id="vantaggi-e-svantaggi">Vantaggi e svantaggi</h2>
-<p>Il vantagio principale di questo dipo di tabella si può contatare nel caso medio della ricerca dato che la funzione <em>hash(key)</em> ci da esattamente la lista in cui si trova l'elemento, la lista è piccola e quindi il numero di hits è solitamente una frazione 'piccola' (nel caso migliore 1/n) di <strong>n</strong></p>
+<p>Il vantagio principale di questo tipo di tabella si può constatare nel caso medio della ricerca dato che la funzione <em>hash(key)</em> ci da esattamente la lista in cui si trova l'elemento, la lista è piccola e quindi il numero di hits è solitamente una frazione 'piccola' (nel caso migliore 1/n) di <strong>n</strong></p>
 <p>Gli svantaggi sono:</p>
 <ul>
-<li>Il caso peggiore: la tabella può degenerare in una lista nel caso in cui tutte le chiavi del'insieme <strong>K</strong> collidano in un unica posizione. Questa problematica è facilmente arginabile in due mode: aumetando il fattore di carico e secgliendo un'opportuna hunzione <em>hash(key)</em> in grado di distribuire nel modo migliore il dominio <strong>K</strong></li>
-<li>Lo spazio: oltre ad allocare un array di dimensione <strong>m</strong> vengono allocate delle liste per gestire le collisioni e si hanno molteplici spazi vuoti all'interno del vettore <em>tabella</em>. Questa problematica è difficilmente arginabile dato che l'unico modo per rendere più efficiente in spazio questo metodo è scegliere un'opportuna hunzione <em>hash(key)</em> in grado di distribuire nel modo migliore il dominio <strong>K</strong></li>
+<li>Il caso peggiore: la tabella può degenerare in una lista nel caso in cui tutte le chiavi del'insieme <strong>K</strong> collidano in un unica posizione. Questa problematica è facilmente arginabile in due modi: aumetando il fattore di carico e secgliendo un'opportuna funzione <em>hash(key)</em> in grado di distribuire nel modo migliore il dominio <strong>K</strong></li>
+<li>Lo spazio: oltre ad allocare un array di dimensione <strong>m</strong> vengono allocate delle liste per gestire le collisioni e si hanno molteplici spazi vuoti all'interno del vettore <em>tabella</em>. Questa problematica è difficilmente arginabile dato che l'unico modo per rendere più efficiente in spazio questo metodo è scegliere un'opportuna funzione <em>hash(key)</em> in grado di distribuire nel modo migliore il dominio <strong>K</strong></li>
 </ul>
 <h2 id="ulteriori-constatazioni">Ulteriori constatazioni</h2>
 <p><img src="doc/graph.png" alt="graph"></p>
-<p>Si può vedere dal grafico che avg_lc (l'implementazione con lista di collisioni è mdeiamente la più veloce).
+<p>Si può vedere dal grafico che avg_lc (l'implementazione con lista di collisioni) è mediamente la più veloce.
 Il fattore di carico ottimale sembrerebbe essere il 50% in quanto ha la media di hits più bassa.</p>
 <h2 id="aggiunte">Aggiunte</h2>
 <p>All'interno della cartella doc sono presenti i dupm delle tabelle hash per tipo e fattore di carico, nella sezione DATI, è presente il numero di hits per ricerca (si effettuano le ricerche degli studenti in studenti.txt nell'ordine inverso rispetto a quello in cui sono stati inseriti)</p>
-<p>Formato: <code>file_sorce~alpha~tipo_tabella.dat</code> (lc = lista collizione, sl = scansione lineare, sl2h = hashing doppio)</p>
-<p><a href="doc%5Cstudenti.txt~0.5~avg_lc.dat">doc\studenti.txt~0.5~avg_lc.dat: </a></p>
+<p>Formato: <code>file_sorce~alpha~tipo_tabella.dat</code> (lc = lista collisione, sl = scansione lineare, sl2h = hashing doppio)</p>
+<p><a href="doc%5Cstudenti.txt~0.5~avg_lc.dat"><code>doc\studenti.txt\0.5\avg_lc.dat</code>: </a></p>
 <pre class="hljs"><code><div>[0] -&gt; NULL
 [1] -&gt; NULL
 [2] -&gt; (k: 1196628910) -&gt; (k: 1097519727) -&gt; NULL
