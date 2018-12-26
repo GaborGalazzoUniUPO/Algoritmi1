@@ -1,9 +1,9 @@
 
 CC=gcc
 CFLAGS=-g -Wall -std=c99
-MAIN=main
-SHARED_H = $(wildcard ../shared/*.h) hash.h
-SHARED_C = $(wildcard ../shared/*.c) hash.c
+MAIN=hash
+SHARED_H = $(wildcard ../shared/*.h)
+SHARED_C = $(wildcard ../shared/*.c)
 
 tutti: clear $(MAIN)
 

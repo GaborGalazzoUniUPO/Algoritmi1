@@ -13,6 +13,7 @@
 !*.png
 !*.csv
 !*.txt
+!*/doc/*.dat
 
 
 # Unignore all dirs

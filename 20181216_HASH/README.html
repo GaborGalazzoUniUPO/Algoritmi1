@@ -385,42 +385,149 @@ blockquote {
 
 </head>
 <body>
-<h1 id="lezione-20181205---alberi-binari-di-ricerca">LEZIONE 2018/12/05 - ALBERI BINARI DI RICERCA</h1>
+<h1 id="lezione-20181216---tabelle-hash">LEZIONE 2018/12/16 - TABELLE HASH</h1>
 <h5 id="gabor-galazzo-20024195-aa-20182019">Gabor Galazzo 20024195 A.A. 2018/2019</h5>
-<p>Il programma <em>brt</em> permette di effettuare un test di valutazione delle performance effettive di ordinamento di un vettore mediante <strong>quick_sort</strong> o costrusione di <strong>Albero Binario di Ricerca</strong> e ricerche su essi.</p>
+<p>Il programma <em>hash</em> permette di effettuare un test di valutazione delle performance effettive di operazioni di inserimento e ricerca all'interno di un dizionario implementato tramite <strong>tabella hash</strong> con gestione delle collisione tramite <strong>lista di adiacenza</strong>, <strong>Indirizzamento aperto + scansione lineare</strong> e <strong>Indirizzamento aperto + doppio hash</strong>.</p>
 <blockquote>
-<p>Uso: ./brt <code>n_array</code> <code>n_ricerche</code> <code>max_dim</code> <code>step</code></p>
+<p>Uso: ./hash <code>in_file</code> <code>out_file</code> <code>table_dim (potenza di 2 || numero primo)</code></p>
 </blockquote>
-<p>L'applicativo procede con un <span style="color:lightblue">for</span> da <em>i</em> = 0 a <code>max_dim</code> con un passo di <code>step</code>; crea <code>n_array</code> array disordinati e li riordina tramite <strong>ABR</strong> o <strong>quick_sort</strong> e calcola la media del <em>tempo si esecuzione</em> e <em>numero di HIT</em>.
-Infine per <code>n_ricerche</code> volte effettua ricerche tramite <strong>ricerca dicotomica</strong> calcolando la media del <em>numero di HIT</em></p>
-<h2 id="risultati-finali">Risultati Finali</h2>
-<p><img src="doc/ordinamento_hit.png" alt="fig. 1.1"></p>
-<p><img src="doc/ordinamento_tempo.png" alt="fig. 1.2"></p>
-<p><img src="doc/ricerca.png" alt="f1.3"></p>
-<h4 id="per-una-migliore-comprensione-si-consiglia-di-visualizzare-il-file-benchmarkgraphsxls">Per una migliore comprensione si consiglia di visualizzare il file <a href="doc/Benchmark_graphs.xlsx">Benchmark_graphs.xls</a></h4>
-<h5 id="le-curve-di-asintotico-sono-realizzate-applicando-un-restringimento-del-codominio-basato-sugli-ipotetici-valori-di-tn">Le curve di asintotico sono realizzate applicando un restringimento del codominio basato sugli ipotetici valori di T(n)</h5>
-<p><img src="https://latex.codecogs.com/gif.latex?Ex: O(n\cdot log(n)) = n\cdot log(n) \cdot \frac{maxValue}{MaxSize\cdot log(MaxSize)}" alt="example"></p>
-<h2 id="commenti-e-considerazioni-sui-grafici-ottenuti">Commenti e considerazioni sui grafici ottenuti</h2>
-<h4 id="come-trovate-l%E2%80%99idea-di-usare-un-albero-binario-di-ricerca-come-struttura-per-l%E2%80%99ordinamento-e-la-ricerca-efficiente-di-chiavi">Come trovate l’idea di usare un albero binario di ricerca come struttura per l’ordinamento e la ricerca efficiente di chiavi?</h4>
-<blockquote>
-<p>Direi che è molto eficente dato che da la possibilità di effettuare ordinamenti in <img src="https://latex.codecogs.com/gif.latex?O(n \cdot log(n))" alt="onlogn"> e ricerche in <img src="https://latex.codecogs.com/gif.latex?O(log(n))" alt="ologn"> potendo sfruttare un allocazione dinamica</p>
-</blockquote>
-<h3 id="quale-complessit%C3%A0-teorica-in-notazione-o-avr%C3%A0-la-nostra-tecnica-di-ordinamento-mediante-abr">Quale complessità teorica (in notazione O) avrà la nostra tecnica di ordinamento mediante ABR?</h3>
-<blockquote>
-<p><img src="https://latex.codecogs.com/gif.latex?T(n) =O(n \cdot log(n))" alt="onlogn"></p>
-</blockquote>
-<h3 id="avete-notato-differenze-tra-le-performance-di-ricerca-tra-abr-e-ricerca-binaria-nonostante-abbiano-la-stessa-complessit%C3%A0-teorica">Avete notato differenze tra le performance di ricerca tra ABR e ricerca binaria, nonostante abbiano la stessa complessità teorica?</h3>
-<blockquote>
-<p>Si: come si può notare dalla fig. 3 la ricerca all'interno di un <strong>ABR &quot;normale&quot;</strong> è molto più instabile e irregolare del <strong>quick_sort</strong></p>
-</blockquote>
-<h3 id="se-ci-fossero-differenze-quali-potrebbero-essere-i-motivi-di-queste-differenze">Se ci fossero differenze, quali potrebbero essere i motivi di queste differenze?</h3>
-<blockquote>
-<p>Le differenze ci sono: il problema principale e che un ABR o dei suoi sottoalberi, in certi casi, possono degenerare in una lista, facendo tendere la ricerca ad una complessità <img src="https://latex.codecogs.com/gif.latex?O(n)" alt="on"></p>
-</blockquote>
-<h3 id="quale-soluzione-funziona-meglio-nella-pratica-tenendo-conto-sia-del-caso-medio-sia-del-caso-peggiore-quale-scegliereste-nella-pratica">Quale soluzione funziona meglio nella pratica, tenendo conto sia del caso medio, sia del caso peggiore? Quale scegliereste nella pratica?</h3>
-<blockquote>
-<p>Nella pratica valuterei quale esigenza è più importante: se avere la ricerca veloce o adottare una struttura dinamica. Quindi se effettuo <strong>più ricerche</strong> e meno modifiche opterei per usare un <strong>vettore ordinato</strong>, altrimenti se mi vengono richeste meno ricerche ma <strong>molte modifiche</strong> opterei su un <strong>ABR</strong></p>
-</blockquote>
+<p>L'applicativo procede con un <span style="color:lightblue">for</span> da <em>i</em> = 0.5 a 1.0 con un passo di 0.1; crea una <strong>tabella hash</strong> di dimenzione <code>table_dim</code> per ogni tipo di <em>gestione di collisioni</em>, nel nostro caso 3. Per ogni tabella legge dal file <code>in_file</code> <code>table_dim</code>*<em>i</em> elementi e li inserisce, poi effettua le ricerche salvando il numero medio di <strong>hits</strong>  per <strong>fattore di carico (α = table_dim*i)</strong> in <code>out_file</code>.</p>
+<h4 id="ai-fini-della-consegna-prender%C3%B2-in-considerazione-solo-i-risultati-derivanti-lutilizzo-di-una-tabella-hash-con-lista-di-adiacenza">Ai fini della consegna prenderò in considerazione solo i risultati derivanti l'utilizzo di una <strong>tabella hash con lista di adiacenza</strong></h4>
+<h2 id="vantaggi-e-svantaggi">Vantaggi e svantaggi</h2>
+<p>Il vantagio principale di questo dipo di tabella si può contatare nel caso medio della ricerca dato che la funzione <em>hash(key)</em> ci da esattamente la lista in cui si trova l'elemento, la lista è piccola e quindi il numero di hits è solitamente una frazione 'piccola' (nel caso migliore 1/n) di <strong>n</strong></p>
+<p>Gli svantaggi sono:</p>
+<ul>
+<li>Il caso peggiore: la tabella può degenerare in una lista nel caso in cui tutte le chiavi del'insieme <strong>K</strong> collidano in un unica posizione. Questa problematica è facilmente arginabile in due mode: aumetando il fattore di carico e secgliendo un'opportuna hunzione <em>hash(key)</em> in grado di distribuire nel modo migliore il dominio <strong>K</strong></li>
+<li>Lo spazio: oltre ad allocare un array di dimensione <strong>m</strong> vengono allocate delle liste per gestire le collisioni e si hanno molteplici spazi vuoti all'interno del vettore <em>tabella</em>. Questa problematica è difficilmente arginabile dato che l'unico modo per rendere più efficiente in spazio questo metodo è scegliere un'opportuna hunzione <em>hash(key)</em> in grado di distribuire nel modo migliore il dominio <strong>K</strong></li>
+</ul>
+<h2 id="ulteriori-constatazioni">Ulteriori constatazioni</h2>
+<p><img src="doc/graph.png" alt="graph"></p>
+<p>Si può vedere dal grafico che avg_lc (l'implementazione con lista di collisioni è mdeiamente la più veloce).
+Il fattore di carico ottimale sembrerebbe essere il 50% in quanto ha la media di hits più bassa.</p>
+<h2 id="aggiunte">Aggiunte</h2>
+<p>All'interno della cartella doc sono presenti i dupm delle tabelle hash per tipo e fattore di carico, nella sezione DATI, è presente il numero di hits per ricerca (si effettuano le ricerche degli studenti in studenti.txt nell'ordine inverso rispetto a quello in cui sono stati inseriti)</p>
+<p>Formato: <code>file_sorce~alpha~tipo_tabella.dat</code> (lc = lista collizione, sl = scansione lineare, sl2h = hashing doppio)</p>
+<p><a href="doc%5Cstudenti.txt~0.5~avg_lc.dat">doc\studenti.txt~0.5~avg_lc.dat: </a></p>
+<pre class="hljs"><code><div>[0] -&gt; NULL
+[1] -&gt; NULL
+[2] -&gt; (k: 1196628910) -&gt; (k: 1097519727) -&gt; NULL
+[3] -&gt; NULL
+[4] -&gt; NULL
+[5] -&gt; (k: 1159783613) -&gt; (k: 1159783908) -&gt; NULL
+[6] -&gt; NULL
+[7] -&gt; NULL
+[8] -&gt; NULL
+[9] -&gt; NULL
+[10] -&gt; NULL
+[11] -&gt; (k: 1172062262) -&gt; NULL
+[12] -&gt; NULL
+[13] -&gt; (k: 1207044849) -&gt; NULL
+[14] -&gt; NULL
+[15] -&gt; NULL
+[16] -&gt; NULL
+[17] -&gt; NULL
+[18] -&gt; NULL
+[19] -&gt; NULL
+[20] -&gt; (k: 1259782626) -&gt; (k: 1097846954) -&gt; (k: 1098112499) -&gt; NULL
+[21] -&gt; NULL
+[22] -&gt; NULL
+[23] -&gt; NULL
+[24] -&gt; (k: 1097694186) -&gt; NULL
+[25] -&gt; (k: 1159782803) -&gt; (k: 1218047034) -&gt; NULL
+[26] -&gt; (k: 1097732790) -&gt; NULL
+[27] -&gt; (k: 1068559228) -&gt; NULL
+[28] -&gt; NULL
+[29] -&gt; NULL
+[30] -&gt; (k: 1210510625) -&gt; NULL
+[31] -&gt; NULL
+[32] -&gt; (k: 1217017485) -&gt; NULL
+[33] -&gt; NULL
+[34] -&gt; (k: 1191339364) -&gt; NULL
+[35] -&gt; NULL
+[36] -&gt; NULL
+[37] -&gt; (k: 1204628410) -&gt; NULL
+[38] -&gt; NULL
+[39] -&gt; NULL
+[40] -&gt; (k: 1157584091) -&gt; NULL
+[41] -&gt; NULL
+[42] -&gt; (k: 1097753408) -&gt; NULL
+[43] -&gt; NULL
+[44] -&gt; NULL
+[45] -&gt; (k: 1166110380) -&gt; NULL
+[46] -&gt; (k: 1065687581) -&gt; NULL
+[47] -&gt; NULL
+[48] -&gt; (k: 1202808359) -&gt; NULL
+[49] -&gt; (k: 1159782626) -&gt; NULL
+[50] -&gt; (k: 1159783602) -&gt; (k: 1065688298) -&gt; NULL
+[51] -&gt; NULL
+[52] -&gt; NULL
+[53] -&gt; NULL
+[54] -&gt; NULL
+[55] -&gt; (k: 1097775539) -&gt; NULL
+[56] -&gt; NULL
+[57] -&gt; (k: 1097599654) -&gt; NULL
+[58] -&gt; (k: 1209317610) -&gt; (k: 1098447444) -&gt; NULL
+[59] -&gt; (k: 1159783570) -&gt; NULL
+[60] -&gt; NULL
+[61] -&gt; (k: 1233687521) -&gt; NULL
+[62] -&gt; NULL
+[63] -&gt; (k: 1203544976) -&gt; (k: 1223212404) -&gt; NULL
+[64] -&gt; (k: 1128546803) -&gt; NULL
+[65] -&gt; NULL
+[66] -&gt; NULL
+[67] -&gt; (k: 1097672360) -&gt; NULL
+[68] -&gt; NULL
+[69] -&gt; (k: 1097775985) -&gt; NULL
+[70] -&gt; (k: 1161044277) -&gt; NULL
+[71] -&gt; NULL
+[72] -&gt; NULL
+[73] -&gt; NULL
+[74] -&gt; NULL
+[75] -&gt; NULL
+[76] -&gt; (k: 1097601437) -&gt; NULL
+[77] -&gt; NULL
+[78] -&gt; NULL
+DATA: ------------
+1
+1
+1
+1
+1
+1
+1
+2
+1
+1
+1
+1
+1
+1
+2
+1
+2
+1
+1
+1
+1
+1
+1
+1
+1
+2
+1
+1
+1
+1
+2
+3
+1
+1
+1
+1
+1
+2
+2
+</div></code></pre>
 
 </body>
 </html>

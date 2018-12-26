@@ -1,173 +1,353 @@
-#include "hash.h"
+
+#include "../shared/hash.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-//TABELLE HASH CON LISTE DI COLLISIONE
+#define GOOD_HASH
 
-hashtl_t hashtl__make(int dim)
+// funzione per leggere una riga dal file di testo ed eliminarel il \n finale
+
+void fgets2(char *s, int size, FILE *stream)
 {
-    hashtl_t hashtl = malloc(dim * sizeof(list_t));
-    for (int i = 0; i < dim; i++)
-        hashtl[i] = list__init();
-    return hashtl;
-}
+    char *e = fgets(s, size, stream);
 
-hentry_t *hentry__make(void *key, void *value)
-{
-    hentry_t *e = malloc(sizeof(hentry_t));
-    e->key = key;
-    e->value = value;
-    return e;
-}
-
-void hashtl__destroy(hashtl_t hashtl, int dim, void (*destroy)(hentry_t *))
-{
-    for (int i = 0; i < dim; i++)
+    if (e == NULL)
     {
-        while (!list__is_empty(hashtl[i]))
-        {
-            hentry_t *e = list__remove(&hashtl[i]);
-            destroy(e);
-            free(e);
-        }
+        perror("ERRORE LETTURA FILE");
+        exit(EXIT_FAILURE);
     }
-    free(hashtl);
+    s[strlen(s) - 1] = '\0';
 }
 
-void hashtl__insert(hashtl_t hashtl, int dim, hentry_t *entry, unsigned long (*hash)(void *, int i, int M))
+// STUDENT
+
+typedef struct
 {
-    int index = hash(entry->key,0,dim);
-    list__insert(entry, &hashtl[index]);
+    char mat[30];
+    char name[60];
+    char surname[60];
+} student_t;
+
+student_t *student__make(char *mat, char *name, char *surname)
+{
+    student_t *student = malloc(sizeof(student_t));
+    strcpy(student->mat, mat);
+    strcpy(student->name, name);
+    strcpy(student->surname, surname);
+    return student;
 }
 
-element_t hashtl__search(hashtl_t hashtl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
+student_t *student__read(FILE *stream)
 {
-    int index = hash(key,0,dim);
+    char mat[30], name[60], surname[60];
 
-    list_t list = hashtl[index];
-    while (list != NULL)
+    fgets2(mat, 29, stream);
+    fgets2(name, 59, stream);
+    fgets2(surname, 59, stream);
+
+    return student__make(mat, name, surname);
+}
+
+unsigned long student__hash(void *st, int i, int M)
+{
+    student_t *student = (student_t *)st;
+    
+    #ifdef GOOD_HASH
+    char* str = student->mat;
+    unsigned long hash = 5381;
+    int c;
+
+    while ((c = *str++))
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+    return (hash + i) % M;
+    #else
+    int c = 0;
+    for (int i = 0; i < strlen(student->mat); i++)
     {
-        hentry_t *entry = list->inf;
-        if (keq(entry->key, key))
-            return entry->value;
-        list = list->next;
+        c += student->mat[i];
     }
-    return NULL;
+    return (c + i) % M;
+    #endif
+    
+   
+    
 }
 
-int hashtl__search_bm(hashtl_t hashtl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
+unsigned long student__2hash(void *st, int i, int M)
 {
-    int index = hash(key,0,dim);
+    
+    return (student__hash(st,0, M) + i*(1 + (student__hash(st,0,M-2)))) % M;
+    
+}
 
-    list_t list = hashtl[index];
-    int i = 1;
-    while (list != NULL)
+void student_entry__destroy(hentry_t* e){
+    free(e->value);
+}
+
+//BENCHMARK
+
+bool streq(void *a1, void *a2)
+{
+    char *s1 = (char *)a1;
+    char *s2 = (char *)a2;
+    return strcmp(s1, s2) == 0;
+}
+
+double benchmark_hashtl(int n, int m, char *in_filename, char* t_out)
+{
+    FILE *infile = fopen(in_filename, "rt");
+    if (infile == NULL)
     {
-        hentry_t *entry = list->inf;
-        if (keq(entry->key, key))
-            return i;
-        list = list->next;
-        i++;
+        perror("ERRORE APERTURA FILE in");
+        exit(EXIT_FAILURE);
     }
-    return i;
-}
 
-void hashtl__print(hashtl_t hashtl, int dim, FILE *fp, char *key_format)
-{
-    for (int i = 0; i < dim; i++)
+    FILE *t_outf = fopen(t_out, "wt");
+    if (t_outf == NULL)
     {
-        fprintf(fp, "[%d] -> ", i);
-        list_t list = hashtl[i];
-        while (list != NULL)
-        {
-            hentry_t *entry = list->inf;
-            fprintf(fp, "(k: ");
-            fprintf(fp, key_format, entry->key);
-            fprintf(fp, ") -> ");
-            list = list->next;
-        }
-        fprintf(fp, "NULL\n");
+        perror("ERRORE APERTURA FILE t_out");
+        exit(EXIT_FAILURE);
     }
-}
 
-//TABELE HASH CON INDIRIZZAMENTO APERTO
+    hashtl_t hashtl = hashtl__make(m);
 
-hashtsl_t hashtsl__make(int dim)
-{
-    hashtsl_t hashtsl = malloc(dim * sizeof(void *));
-    for (int i = 0; i < dim; i++)
-        hashtsl[i] = NULL;
-    return hashtsl;
-}
-void hashtsl__print(hashtsl_t hashtsl, int dim, FILE *fp, char *key_format)
-{
-    for (int i = 0; i < dim; i++)
+    list_t students = list__init();
+    int i;
+    for (i = 0; i < n && !feof(infile); i++)
     {
-        hentry_t *entry = hashtsl[i];
-        fprintf(fp, "[%d] -> ", i);
-        if (entry != NULL)
-        {
-            fprintf(fp, key_format, entry->key);
-            fprintf(fp, "\n");
-        }
-        else
-            fprintf(fp, "NULL\n");
+        student_t *student = student__read(infile);
+        hentry_t *entry = hentry__make(student->mat, student);
+        hashtl__insert(hashtl, m, entry, student__hash);
+        list__insert(student, &students);
     }
-}
-void hashtsl__insert(hashtsl_t hashtsl, int dim, hentry_t *entry, unsigned long(*hash)(void *, int i, int M))
-{
+    if (i < n)
+        n = i;
 
-    int i = 0;
-    do
-    {
-        int index = hash(entry->key,i++,dim);
-        if (hashtsl[index] == NULL)
-        {
-            hashtsl[index] = entry;
-            break;
-        }
-    } while (i != dim);
-}
+    hashtl__print(hashtl, m, t_outf, "%s");
 
-element_t hashtsl__search(hashtsl_t hashtsl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
-{
-    int i = 0;
-    hentry_t *entry = NULL;
-    do
-    {
-        int index = hash(key, i++, dim);
-        entry = hashtsl[index];
-        if (entry != NULL && keq(entry->key, key))
-        {
-            return entry->value;
-        }
-    } while (entry != NULL && i != dim);
-    return NULL;
-}
+    fprintf(t_outf, "DATA: ------------\n");
 
-int hashtsl__search_bm(hashtsl_t hashtsl, int dim, void *key, unsigned long (*hash)(void *, int i, int M), bool (*keq)(void *, void *))
-{
-    int i = 0;
-    hentry_t *entry = NULL;
-    int hit = 0;
-    do
+    list_t next = students;
+    int hits_l = 0;
+    while (next != NULL)
     {
-        int index = hash(key,i++,dim);
-        hit++;
-        entry = hashtsl[index];
-        if (entry != NULL && keq(entry->key, key))
-        {
-            return hit;
-        }
-    } while (entry != NULL && i != dim);
-    return hit;
-}
-void hashtsl__destroy(hashtsl_t hashtsl, int dim, void (*destroy)(hentry_t *))
-{
-    for (int i = 0; i < dim; i++)
-    {
-        hentry_t *entry = hashtsl[i];
-        if(entry!=NULL)
-            destroy(entry);
-        free(entry);
+        student_t *student = next->inf;
+        int hits = hashtl__search_bm(hashtl, m, student->mat, student__hash, streq);
+         fprintf(t_outf, "%d\n", hits);
+        hits_l += hits;
+        next = next->next;
     }
+
+    //LIBERO LA MEMORIA
+    hashtl__destroy(hashtl, m, student_entry__destroy);
+    while (!list__is_empty(students))
+        list__remove(&students);
+
+    fclose(infile);
+    fclose(t_outf);
+
+    return (double)hits_l/(double)n;
+        
+
+}
+
+double benchmark_hashtsl(int n, int m, char *in_filename, char* t_out)
+{
+    FILE *infile = fopen(in_filename, "rt");
+    if (infile == NULL)
+    {
+        perror("ERRORE APERTURA FILE in");
+        exit(EXIT_FAILURE);
+    }
+
+    FILE *t_outf = fopen(t_out, "wt");
+    if (t_outf == NULL)
+    {
+        perror("ERRORE APERTURA FILE t_out");
+        exit(EXIT_FAILURE);
+    }
+
+    hashtsl_t hashtsl = hashtsl__make(m);
+
+    list_t students = list__init();
+    int i;
+    for (i = 0; i < n && !feof(infile); i++)
+    {
+        student_t *student = student__read(infile);
+        hentry_t *entry = hentry__make(student->mat, student);
+        hashtsl__insert(hashtsl, m, entry, student__hash);
+        list__insert(student, &students);
+    }
+    if (i < n)
+        n = i;
+
+    hashtsl__print(hashtsl, m, t_outf, "%s");
+
+    fprintf(t_outf, "DATA: ------------\n");
+
+    list_t next = students;
+    int hits_l = 0;
+    while (next != NULL)
+    {
+        student_t *student = next->inf;
+        int hits = hashtsl__search_bm(hashtsl, m, student->mat, student__hash, streq);
+        fprintf(t_outf, "%d\n", hits);
+        hits_l += hits;
+        next = next->next;
+    }
+
+    //LIBERO LA MEMORIA
+    hashtsl__destroy(hashtsl, m, student_entry__destroy);
+    while (!list__is_empty(students))
+        list__remove(&students);
+
+         fclose(infile);
+    fclose(t_outf);
+
+    return (double)hits_l/(double)n;
+        
+
+}
+
+double benchmark_hashtsl2h(int n, int m, char *in_filename, char* t_out)
+{
+    FILE *infile = fopen(in_filename, "rt");
+    if (infile == NULL)
+    {
+        perror("ERRORE APERTURA FILE in");
+        exit(EXIT_FAILURE);
+    }
+
+    FILE *t_outf = fopen(t_out, "wt");
+    if (t_outf == NULL)
+    {
+        perror("ERRORE APERTURA FILE t_out");
+        exit(EXIT_FAILURE);
+    }
+
+    hashtsl_t hashtsl = hashtsl__make(m);
+
+    list_t students = list__init();
+    int i;
+    for (i = 0; i < n && !feof(infile); i++)
+    {
+        student_t *student = student__read(infile);
+        hentry_t *entry = hentry__make(student->mat, student);
+        hashtsl__insert(hashtsl, m, entry, student__2hash);
+        list__insert(student, &students);
+    }
+    if (i < n)
+        n = i;
+
+    hashtsl__print(hashtsl, m, t_outf, "%s");
+
+    fprintf(t_outf, "DATA: ------------\n");
+
+    list_t next = students;
+    int hits_l = 0;
+    while (next != NULL)
+    {
+        student_t *student = next->inf;
+        int hits = hashtsl__search_bm(hashtsl, m, student->mat, student__hash, streq);
+        fprintf(t_outf, "%d\n", hits);
+        hits_l += hits;
+        next = next->next;
+    }
+
+    //LIBERO LA MEMORIA
+    hashtsl__destroy(hashtsl, m, student_entry__destroy);
+    while (!list__is_empty(students))
+        list__remove(&students);
+
+         fclose(infile);
+    fclose(t_outf);
+
+    return (double)hits_l/(double)n;
+        
+
+}
+
+//function body
+int potenza_q(int x)
+{
+   //checks whether a number is zero or not
+   if (x == 0)
+      return 0;
+
+   //true till x is not equal to 1
+   while( x != 1)
+   {
+      //checks whether a number is divisible by 2
+      if(x % 2 != 0)
+         return 0;
+         x /= 2;
+   }
+   return 1;
+}
+
+// restituisce true/false a seconda che n sia primo o composto
+bool primo(int n)
+{
+  int i;
+  if(n<2) return false;
+  if(n%2==0) {
+    if(n==2)
+      return true;
+    else
+      return false;
+  }
+  for (i=3; i*i<=n; i += 2) {
+      if(n%i==0) {
+          return false;
+      }
+  }
+  return true;
+}
+
+
+
+int main(int argc, char *argv[])
+{
+
+    if (argc != 4)
+    {
+        fprintf(stderr, "Uso: %s in_file out_file table_dim (potenza di 2 || numero primo) \n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    int table_dim = atoi(argv[3]);
+    if(!primo(table_dim) && !potenza_q(table_dim)){
+        fprintf(stderr, "Uso: %s in_file out_file table_dim  --> (potenza di 2 || numero primo) <-- \n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+   
+
+    FILE *out = fopen(argv[2], "wt");
+    if (out == NULL)
+    {
+        perror("ERRORE APERTURA FILE out");
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(out, "alpha,avg_lc,avg_sl,avg_sl2h\n");
+
+    for(double d = 0.5; d<1; d+=0.1){
+        
+        char *t_out = malloc(table_dim*sizeof(char));
+        int len = table_dim*sizeof(char);
+        snprintf(t_out, len, "%s~%.1lf~%s.dat", argv[1], d, "avg_lc");
+        double avg_lc = benchmark_hashtl(table_dim*d,table_dim, argv[1],t_out);
+        snprintf(t_out, len, "%s~%.1lf~%s.dat", argv[1], d, "avg_sl");
+        double avg_sl = benchmark_hashtsl(table_dim*d,table_dim, argv[1],t_out);
+        snprintf(t_out, len, "%s~%.1lf~%s.dat", argv[1], d, "avg_sl2h");
+        double avg_sl2h = benchmark_hashtsl2h(table_dim*d,table_dim, argv[1],t_out);
+        fprintf(out, "%.1lf,%.2lf,%.2lf,%.2lf\n", d, avg_lc, avg_sl,avg_sl2h);
+        
+    }
+
+    fclose(out);
+    return 0;
 }
