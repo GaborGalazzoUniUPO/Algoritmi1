@@ -30,7 +30,7 @@ All'interno della cartella doc sono presenti i dupm delle tabelle hash per tipo 
 
 Formato: `file_sorce~alpha~tipo_tabella.dat` (lc = lista collisione, sl = scansione lineare, sl2h = hashing doppio)
 
-[`doc\studenti.txt\0.5\avg_lc.dat`: ](doc\studenti.txt~0.5~avg_lc.dat)
+[`doc\studenti.txt~0.5~avg_lc.dat`: ](doc\studenti.txt~0.5~avg_lc.dat)
 ```
 [0] -> NULL
 [1] -> NULL
